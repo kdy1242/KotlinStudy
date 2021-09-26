@@ -10,7 +10,7 @@ class MainActivity : AppCompatActivity() {
     // 매번 null 체크를 할 필요 없이 편의성을 위해 바인딩 변수 재 선언
     private val binding get() = mBinding!!
 
-    override fun onCreate(savedInstanceState: Bundle?) {    // 앱이 최초 실행됐을 때 수행
+    override fun onCreate(savedInstanceState: Bundle?) {    // 앱이 최초 실행됐을 때 수행 //액티비티가 최초 실행되면 이곳을 수행한다.
         super.onCreate(savedInstanceState)
         // setContentView(R.layout.activity_main)  // xml 화면 뷰를 연결한다.
 
@@ -22,6 +22,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.tvTitle.setText("Hello world")  // 텍스트의 값을 변경한다.
+
+        binding.btnGetText.setOnClickListener { // 에딧텍스트에 입력되어있는 값을 가지고와서 텍스트뷰에 뿌려준다.
+            var resultText = binding.etId.text.toString()   // 에딧텍스트에 입력되어있는 값
+            binding.tvResult.setText(resultText)    // 입력된 값을 텍스트뷰에 set 해줌.
+        }
     }
     override fun onDestroy() {
         // onDestroy 에서 binding class 인스턴스 참조를 정리해주어야 한다.
