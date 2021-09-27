@@ -1,36 +1,24 @@
 package com.example.kotlinstudy
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.kotlinstudy.databinding.ActivityMainBinding
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-    // 전역 변수로 바인딩 객체 선언
-    private var mBinding: ActivityMainBinding? = null
-    // 매번 null 체크를 할 필요 없이 편의성을 위해 바인딩 변수 재 선언
-    private val binding get() = mBinding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {    // 앱이 최초 실행됐을 때 수행 //액티비티가 최초 실행되면 이곳을 수행한다.
         super.onCreate(savedInstanceState)
-        // setContentView(R.layout.activity_main)  // xml 화면 뷰를 연결한다.
+        setContentView(R.layout.activity_main)  // xml 화면 뷰를 연결한다.
+        btn_a.setOnClickListener {
+            // var : 변수 값이 언제든지 변경 될 수 있음.
+            // val : 자바에서는 final 값이 변경되지 못하는 변수.
 
-        // 자동 생성된 뷰 바인딩 클래스에서의 inflate라는 메서드를 활용해서
-        // 액티비티에서 사용할 바인딩 클래스의 인스턴스 생성
-        mBinding = ActivityMainBinding.inflate(layoutInflater)
-        // getRoot 메서드로 레이아웃 내부의 최상위 위치 뷰의
-        // 인스턴스를 활용하여 생성된 뷰를 액티비티에 표시 합니다.
-        setContentView(binding.root)
-
-        binding.tvTitle.setText("Hello world")  // 텍스트의 값을 변경한다.
-
-        binding.btnGetText.setOnClickListener { // 에딧텍스트에 입력되어있는 값을 가지고와서 텍스트뷰에 뿌려준다.
-            var resultText = binding.etId.text.toString()   // 에딧텍스트에 입력되어있는 값
-            binding.tvResult.setText(resultText)    // 입력된 값을 텍스트뷰에 set 해줌.
+            val intent = Intent(this, SubActivity::class.java)  // 다음 화면으로 이동하기 위한 인텐트 객체 생성
+            intent.putExtra("msg", tv_sendMeg.text.toString())    // HelloWorld 라는 텍스트 값을 담은 뒤 msg 라는 키로 잠갔다.
+            startActivity(intent)   // intent 에 저장되어있는 액티비티 쪽으로 이동한다.
+            finish()                // 자기 자신 액티비티를 파괴한다.
         }
-    }
-    override fun onDestroy() {
-        // onDestroy 에서 binding class 인스턴스 참조를 정리해주어야 한다.
-        mBinding = null
-        super.onDestroy()
     }
 }
