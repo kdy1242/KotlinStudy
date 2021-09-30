@@ -14,35 +14,32 @@ import com.example.kotlinstudy.databinding.ActivityMainBinding
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity(){
 
-    override fun onCreate(savedInstanceState: Bundle?) {    // 액티비티의 실행 시작 지점
+    override fun onCreate(savedInstanceState: Bundle?) {    // 해당 액티비티가 처음 실행될 때 한번 수행하는 곳 (초기화)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        btn_navi.setOnClickListener {
-            layout_drawer.openDrawer(GravityCompat.START)   // START : left, END : right 랑 같은 말
-        }
-
-        naviView.setNavigationItemSelectedListener(this)    // 네비게이션 메뉴 아이템에 클릭 속성 부여
+        //TODO: 저장된 데이터를 로드
+        loadData()  // edit text 저장되어있던 값을 setText
     }
 
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {  // 네비게이션 메뉴 아이템 클릭 시 수행
-        when (item.itemId){
-            R.id.access -> Toast.makeText(applicationContext, "접근성", Toast.LENGTH_SHORT).show()
-            R.id.email -> Toast.makeText(applicationContext, "이메일", Toast.LENGTH_SHORT).show()
-            R.id.message -> Toast.makeText(applicationContext, "메시지", Toast.LENGTH_SHORT).show()
-        }
-        layout_drawer.closeDrawers()    // 네비게이션 뷰 닫기
-        return false
+    private fun loadData() {
+        val pref = getSharedPreferences("pref", 0)
+        et_hello.setText(pref.getString("name", ""))    // 첫번째 인자에서는 저장할 당시의 키 값을 적어줌
+                                                                       // 두번째는 키 값에 데이터가 존재하지 않을 경우 대체 값을 적어줌.
     }
 
-    override fun onBackPressed() {  // 백버튼 누를 시 수행하는 메소드
-        if (layout_drawer.isDrawerOpen(GravityCompat.START)){
-            layout_drawer.closeDrawers()
-        }
-        else {
-            super.onBackPressed()   // 일반 백버튼 기능 실행 (finish)
-        }
+    private fun saveData() {
+        val pref = getSharedPreferences("pref", 0)
+        val edit = pref.edit()  // 수정모드
+        edit.putString("name", et_hello.text.toString())  // 첫번째 인자에는 키 값을, 두번째 인자에는 실제 담아둘 값
+        edit.apply()    // 값을 저장완료
+    }
+
+    override fun onDestroy() {  // 해당 액티비티가 종료되는 시점이 다가올 때 호출
+        super.onDestroy()
+
+        saveData()  // edit text 값을 저장
     }
 }
