@@ -1,17 +1,9 @@
 package com.example.kotlinstudy
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Gravity
-import android.view.MenuItem
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.ListView
-import android.widget.Toast
-import androidx.core.view.GravityCompat
-import com.example.kotlinstudy.databinding.ActivityMainBinding
-import com.google.android.material.navigation.NavigationView
+import android.webkit.WebChromeClient
+import android.webkit.WebViewClient
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(){
@@ -20,26 +12,21 @@ class MainActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //TODO: 저장된 데이터를 로드
-        loadData()  // edit text 저장되어있던 값을 setText
+        webView.settings.javaScriptEnabled = true // 자바 스크립트 허용
+        /* 웹뷰에서 새 창이 뜨지 않도록 방지하는 구문 */
+        webView.webViewClient = WebViewClient()
+        webView.webChromeClient = WebChromeClient()
+        /* 웹뷰에서 새 창이 뜨지 않도록 방지하는 구문 */
+        webView.loadUrl("https://www.naver.com")    // 링크 주소를 Load 함
     }
 
-    private fun loadData() {
-        val pref = getSharedPreferences("pref", 0)
-        et_hello.setText(pref.getString("name", ""))    // 첫번째 인자에서는 저장할 당시의 키 값을 적어줌
-                                                                       // 두번째는 키 값에 데이터가 존재하지 않을 경우 대체 값을 적어줌.
-    }
-
-    private fun saveData() {
-        val pref = getSharedPreferences("pref", 0)
-        val edit = pref.edit()  // 수정모드
-        edit.putString("name", et_hello.text.toString())  // 첫번째 인자에는 키 값을, 두번째 인자에는 실제 담아둘 값
-        edit.apply()    // 값을 저장완료
-    }
-
-    override fun onDestroy() {  // 해당 액티비티가 종료되는 시점이 다가올 때 호출
-        super.onDestroy()
-
-        saveData()  // edit text 값을 저장
+    override fun onBackPressed() {
+        if(webView.canGoBack()) {
+            // 웹사이트에서 뒤로 갈 페이지가 존재한다면...
+            webView.goBack()    // 웹사이트 뒤로가기
+        }
+        else {
+            super.onBackPressed()   // 본래의 백버튼 기능 수행 (안드로이드)
+        }
     }
 }
