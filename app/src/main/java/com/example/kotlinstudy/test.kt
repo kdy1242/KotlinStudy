@@ -12,34 +12,47 @@ package com.example.kotlinstudy
 // var : 값 변경 가능, val : 변경 불가능
 
 fun main() {
-    // 코틀린은 기본 변수에서 null 허용하지 않음.
-    // var a: Int = 123
-    var a: Int? = null  // 자료형 뒤에 뭂음표 붙여서 nullable 변수(null ㄱㄴ)로 선언
-    println(a)
 
-    // 정수형
-    var intValue: Int = 1234            // 10진수
-    var longValue: Long = 1234L         // 10진수
-    var intValueByHex: Int = 0x1af      // 16진수
-    var intValueByBin: Int = 0b10110110 // 2진수
+    // 변수와 자료형
 
-    // 실수형
-    var doubleValue: Double = 123.5
-    var doubleValueWithExp: Double = 123.5e10
-    var floatValue: Float = 123.5f
+//    // 코틀린은 기본 변수에서 null 허용하지 않음.
+//    // var a: Int = 123
+//    var a: Int? = null  // 자료형 뒤에 뭂음표 붙여서 nullable 변수(null ㄱㄴ)로 선언
+//    println(a)
+//
+//    // 정수형
+//    var intValue: Int = 1234            // 10진수
+//    var longValue: Long = 1234L         // 10진수
+//    var intValueByHex: Int = 0x1af      // 16진수
+//    var intValueByBin: Int = 0b10110110 // 2진수
+//
+//    // 실수형
+//    var doubleValue: Double = 123.5
+//    var doubleValueWithExp: Double = 123.5e10
+//    var floatValue: Float = 123.5f
+//
+//    // 문자형
+//    var charValue: Char = 'a'
+//    var koreanCharValue: Char = '가'
+//
+//    // 논리형
+//    var booleanValue: Boolean = true
+//
+//    // 문자열
+//    var stringValue = "one line string test"
+//    var multiLineStringValue = """multiline
+//    string
+//    test
+//    """
 
-    // 문자형
-    var charValue: Char = 'a'
-    var koreanCharValue: Char = '가'
 
-    // 논리형
-    var booleanValue: Boolean = true
+    // 형변한과 배열
+    var a: Int = 54321
+    var b: Long = a.toLong()    // 명시적 형변환, 암시적 형변환은 지원 x
 
-    // 문자열
-    var stringValue = "one line string test"
-    var multiLineStringValue = """multiline
-    string
-    test
-    """
+    var intArr = arrayOf(1, 2, 3, 4, 5)
+    var nullArr = arrayOfNulls<Int>(5)  // null 로 채워진 배열
+    intArr[2] = 8
+    println(intArr[4])
 
 }
