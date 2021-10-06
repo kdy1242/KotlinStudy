@@ -47,12 +47,36 @@ fun main() {
 
 
     // 형변한과 배열
-    var a: Int = 54321
-    var b: Long = a.toLong()    // 명시적 형변환, 암시적 형변환은 지원 x
+//    var a: Int = 54321
+//    var b: Long = a.toLong()    // 명시적 형변환, 암시적 형변환은 지원 x
+//
+//    var intArr = arrayOf(1, 2, 3, 4, 5)
+//    var nullArr = arrayOfNulls<Int>(5)  // null 로 채워진 배열
+//    intArr[2] = 8
+//    println(intArr[4])
 
-    var intArr = arrayOf(1, 2, 3, 4, 5)
-    var nullArr = arrayOfNulls<Int>(5)  // null 로 채워진 배열
-    intArr[2] = 8
-    println(intArr[4])
+
+    // 타입추론과 함수
+    // 타입 추론 = 변수나 함수들을 선언할 때나 연산이 이루어질때 자료형을 코드에 명시하지 않아도 코틀린이 자동으로 자료형을 추론함
+    var a = 1234    // Int
+    var b = 1234L   // Long
+
+    var c = 12.45   // Double
+    var d = 12.45f  // float
+
+    var e = 0xABCD  // Int
+    var f = 0b01010101  // Int
+
+    var g = true    // Boolean
+    var h = 'c'     // Char
+
+    // 함수 = 특정한 동작을 하거나 원하는 결과값을 연산하는데 사용
+    println(add(5, 6, 7))
 
 }
+
+//fun add(a: Int, b: Int, c: Int): Int {      // 반환값 없으면 반환형 생략가능
+//    return a + b + c
+//}
+// 단일표현식 함수
+fun add(a: Int, b: Int, c: Int) = a + b + c     // 반환형의 타입추론 가능
