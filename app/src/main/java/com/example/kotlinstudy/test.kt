@@ -1,32 +1,26 @@
 package com.example.kotlinstudy
 
 fun main() {
-    // 조건문과 비교연산자
-    var a = 10
-    if(a > 10){
-        println("a는 10보다 크다")
-    } else {
-        println("a는 10보다 작거나 같다")
+    // 반복문과 증감연산자
+    // 조건형 반복문 : while, do while
+    var a = 0
+    var b = 0
+    var c = 0
+    while(a < 5) {
+        println(a++)    // 출력결과 : 0 1 2 3 4
+        println(++b)    // 출력결과 : 1 2 3 4 5
     }
-    // is 연산자, !is 연산자
-    // is 좌측엔 변수, 우측엔 확인할 자료형쓰면
-    // 좌측변수가 우측 자료형에 호환되는지 여부를 체크하고 형변환까지 한번에 진행시켜줌
-
-    doWhen(1)
-    doWhen("ABC")
-    doWhen(12L)
-    doWhen(3.14159)
-    doWhen("Kotlin")
-}
-
-// 다중 조건문 when
-fun doWhen(a: Any) {    // Any : 어떤 자료형이든 상관없이 호환되는 코틀린의 최상위 자료형
-    when(a) {   // 표현식으로서의 역할을 하게 하려면 조건으로 동작 대신 값을 써줘야함
-        1 -> println("정수 1입니다")
-        "ABC" -> println("ABC 입니다")
-        is Long -> println("Long 타입입니다")
-        !is String -> println("String 타입이 아닙니다")
-        else -> println("어떤 조건도 만족하지 않습니다")     // 위의 어떤 조건값에도 맞지 않는 경우 실행
-        // 등호나 부등호의 사용은 불가능함
+    do {    // 최초 한 번은 조건없이 do 에서 구문을 실행한 후 while 로 조건을 체크(조건과 관계 없이 반드시 한번 실행)
+        println(c++)
+    } while (c < 5)
+    // 범위형 반복문 : for
+    for(i in 0..9 step 3) {    // i가 0부터 9이내에서 동작   // step 3 을 붙여서 3씩 증가
+        print(i)
+    }
+    for(i in 9 downTo 0) {  // 9부터 0까지 감소, step 사용가능
+        print(i)
+    }
+    for(i in 'a'..'e') {    // char 자료형에도 사용 ㄱㄴ
+        print(i)
     }
 }
