@@ -1,26 +1,34 @@
 package com.example.kotlinstudy
 
 fun main() {
-    // 반복문과 증감연산자
-    // 조건형 반복문 : while, do while
-    var a = 0
-    var b = 0
-    var c = 0
-    while(a < 5) {
-        println(a++)    // 출력결과 : 0 1 2 3 4
-        println(++b)    // 출력결과 : 1 2 3 4 5
+    // 흐름제어와 논리연산자
+    // break, continue
+    for(i in 1..10) {
+        if(i == 3) break    // 1 2
+        println(i)
     }
-    do {    // 최초 한 번은 조건없이 do 에서 구문을 실행한 후 while 로 조건을 체크(조건과 관계 없이 반드시 한번 실행)
-        println(c++)
-    } while (c < 5)
-    // 범위형 반복문 : for
-    for(i in 0..9 step 3) {    // i가 0부터 9이내에서 동작   // step 3 을 붙여서 3씩 증가
-        print(i)
+    for(i in 1..10) {
+        if(i == 3) continue     // 1 2 4 5 6 7 8 9 10
+        println(i)
     }
-    for(i in 9 downTo 0) {  // 9부터 0까지 감소, step 사용가능
-        print(i)
+
+    // 다중 반복문에서 break 나 continue 가 적용되는 반복문을 label 을 통해 지정할 수 있는 기능
+    loop@for(i in 1..10) {
+        for(j in 1..10) {
+            if(i == 1 && j == 2) break@loop // 레이블이 달린 반복문을 기준으로 즉시 break 를 시켜줌 // continue 도 마찬가지
+            println("i : $i, j : $j")
+        }
     }
-    for(i in 'a'..'e') {    // char 자료형에도 사용 ㄱㄴ
-        print(i)
-    }
+
+    // 논리연산자
+    // &&(and), ||(or), !(not)
+    println(true && false)
+    println(true || false)
+    println(!true)
+    println(!false)
+
+    var a = 6
+    var b = 4
+
+    println(a > 5 && b < 5)
 }
