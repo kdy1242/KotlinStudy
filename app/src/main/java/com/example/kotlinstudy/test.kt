@@ -1,34 +1,22 @@
 package com.example.kotlinstudy
 
 fun main() {
-    // 흐름제어와 논리연산자
-    // break, continue
-    for(i in 1..10) {
-        if(i == 3) break    // 1 2
-        println(i)
+    // 클래스의 기본 구조
+    // 속성(고유의 특징값), 함수(기능을 구현)
+    // 인스턴스 : 클래스를 이용해서 만들어내는 서로 다른 속성의 객체를 지칭하는 용어
+
+    var a = Person("홍길동", 1990)
+    var b = Person("김길동", 1997)
+    var c = Person("박길동", 2004)
+
+    a.introduce()
+    b.introduce()
+    c.introduce()
+
+}
+
+class Person(var name:String, var birthYear:Int) {
+    fun introduce() {
+        println("안녕하세요, ${birthYear}년생 ${name}입니다")
     }
-    for(i in 1..10) {
-        if(i == 3) continue     // 1 2 4 5 6 7 8 9 10
-        println(i)
-    }
-
-    // 다중 반복문에서 break 나 continue 가 적용되는 반복문을 label 을 통해 지정할 수 있는 기능
-    loop@for(i in 1..10) {
-        for(j in 1..10) {
-            if(i == 1 && j == 2) break@loop // 레이블이 달린 반복문을 기준으로 즉시 break 를 시켜줌 // continue 도 마찬가지
-            println("i : $i, j : $j")
-        }
-    }
-
-    // 논리연산자
-    // &&(and), ||(or), !(not)
-    println(true && false)
-    println(true || false)
-    println(!true)
-    println(!false)
-
-    var a = 6
-    var b = 4
-
-    println(a > 5 && b < 5)
 }
