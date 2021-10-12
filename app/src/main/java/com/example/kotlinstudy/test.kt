@@ -2,22 +2,21 @@ package com.example.kotlinstudy
 
 fun main() {
     // 오버라이딩과 추상화
-    // 오버라이딩 - 같은 이름과 형태로 된 함수를 다시 구현
-
-    var t = Tiger()
-    t.eat()
+    var r = Rabbit()
+    r.eat()
+    r.sniff()
 
 }
-
-// open - 클래스가 상속될수있도록 클래스 선언시 붙여주는 키워드
-open class Animal {
-    open fun eat(){
-        println("음식을 먹습니다")
+// 추상화 - 선언부만 있고 기능이 구현되지 않은 추상함수, 추상함수를 포함하는 추상클래스라는 요소로 구성됨
+abstract class Animal{  // 추상클래스는 미완성클래스이기때문에 단독으로는 인스턴스 만들수없음
+    abstract fun eat()
+    fun sniff(){
+        println("킁킁")
     }
 }
 
-class Tiger: Animal(){
-    override fun eat() {
-        println("고기를 먹습니다")
+class Rabbit: Animal(){
+    override fun eat(){
+        println("당근을 먹습니다")
     }
 }
