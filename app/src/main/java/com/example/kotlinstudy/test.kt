@@ -1,29 +1,43 @@
 package com.example.kotlinstudy
 
 fun main() {
-    // 클래스의 생성자
-    // 생성자 -> 새로운 인스턴스를 만들기 위해 호출하는 특수한 함수
-    // 생성자 기능 - 인스턴스 속성 초기화, 인스턴스 생성시 필요한 구문을 수행
-    // init -> 패러미터나 반환형이 없는 특수한 함수, 생성자를 통해 인스턴스가 만들어질때 호출되는 함수
+    // 클래스의 상속
+    // 상속  - 이미 존재하는 클래스를 확장하여 새로운 속성이나 함수를 추가한 클래스를 만들어야할때
+    // 여러개의 클래스를 만들엇는데 클래스들의 공통점들을 뽑아 코드관리를 편하게 해야할때 사용
+    // 속성과 함수를 물려주는쪽-수퍼클래스
+    // 받는쪽 - 서브클래스
 
-    var a = Person("홍길동", 1990)
-    var b = Person("김길동", 1997)
-    var c = Person("박길동", 2004)
-    
-    var d = Person("최길동")
-    var e = Person("한길동")
+    var a = Animal("별이", 5, "개")
+    var b = Dog("별이", 5)
+
+    a.introduce()
+    b.introduce()
+
+    b.bark()
+
+    var c = Cat("루이", 1)
+    c.introduce()
+    c.meow()
 
 }
 
-class Person (var name:String, val birthYear:Int){
-    // 기본 생성자 - 클래스를 만들 때 기본으로 선언
-    init{
-        println("${this.birthYear}년생 ${this.name}님이 생성되었습니다.")
+// open - 클래스가 상속될수있도록 클래스 선언시 붙여주는 키워드
+open class Animal (var name:String, val age:Int, var type:String){
+    fun introduce(){
+        println("저는 ${type} ${name}이고, ${age}살입니다.")
     }
-    
-    // 보조생성자 -> 기본 생성자와 다른 형태의 생성자를 제공하여 인스턴스 생성시 편의 제공, 추가적인 구문을 수행하는 기능 제공
-    // 보조생성자 만들때 반드시 기본생성자 통해서 속성 초기화해야됨
-    constructor(name:String) : this(name, 1997) {
-        println("보조 생성자가 사용되었습니다.")
+}
+
+// 서브클래스는 수퍼클래스에 존재하는 속성과 같은 이름의 속성을 가질 수 없음
+// 서브클래스가 생성될때는 반드시 수퍼클래스의 생성자까지 호출되어야함
+class Dog(name:String, age:Int) : Animal(name, age, "개") {
+    fun bark() {
+        println("멍멍")
+    }
+}
+
+class Cat(name:String, age:Int) : Animal(name, age, "고양이") {
+    fun meow() {
+        println("야옹")
     }
 }
