@@ -11,7 +11,7 @@ fun main() {
 
 // open - 클래스가 상속될수있도록 클래스 선언시 붙여주는 키워드
 open class Animal {
-    fun eat(){
+    open fun eat(){
         println("음식을 먹습니다")
     }
 }
