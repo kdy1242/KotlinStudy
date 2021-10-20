@@ -14,6 +14,8 @@ package com.example.kotlinstudy
 // 하지만 1은 2를 참조할수있지만 2는 1을 참조할방법이 없음 -> 인터페이스로 해결
 // 이때 인터페이스를 observer(코틀린에서는 listener), 이벤트를 넘겨주는 행위는 callback
 
+// EventPrinter 가 EventListener 를 상속받아 구현하지 않고 임시로 만든 별도의 EventListener 객체를 대신 넘겨줄 수도 잇음
+// -> 익명객체 (이름이 없는 객체)
 fun main() {
     EventPrinter().start()
 }
@@ -30,14 +32,15 @@ class Counter(var listener: EventListener) {
     }
 }
 
-class EventPrinter: EventListener {
-    override fun onEvent(count: Int) {
-        print("${count}-")
-    }
-
+class EventPrinter {
     fun start() {
-        val counter = Counter(this)
-        // this - EventPrinter 객체 자신을 나타내지만 받는쪽에서 EventListener 만 요구했기 때문에 EventListener 구현부만 넘겨주게됨
+        val counter = Counter(object: EventListener{
+            override fun onEvent(count: Int) {
+                print("${count}-")
+            }
+        })
         counter.count()
     }
 }
+
+// 옵저버패턴은 이벤트를 기반으로 동작하는 모든 코드에서 광범위하게 쓰이는 방식이므로 구조를 이해하는것이 중요
