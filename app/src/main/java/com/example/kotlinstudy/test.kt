@@ -1,49 +1,50 @@
 package com.example.kotlinstudy
 
-// 클래스의 다형성
+// 제너릭(Generic)
+// 클래스나 함수에서 사용하는 자료형을 외부에서 지정할수잇음
+// 함수나 클래스를 선언할때 고정적인 자료형 대신 실제 자료형으로 대체되는 타입 패러미터를 받아 사용하는 방법
+// 캐스팅연산없이도 자료형 그대로 사용할수잇음
 
-// 다형성 - 클래스의 상속관계에서 오는 인스턴스의 호환성을 적극 활용할 수 잇는 기능
-// 수퍼클래스가 같은 인스턴스를 한번에 관리하거나 인터페이스를 구현하여 사용하는 코드에서도 사용됨- 이해꼭필요
+// 타입패러미터의 이름은 클래스 이름과 규칙이 같지만 일반적으로 타입의 이니셜인 T를 사용하는것이 관례
+// 여러개의 제너릭을 사용할경우 T의 다음알파벳인 U, V 사용하기도함 <T, U, V>
 
-// 업캐스팅 - 상위 자료형으로 변환
-// 다운캐스팅 - 하위자료형으로 변환
+// 제너릭을 특정한 수퍼클래스를 상속받은 타입으로만 제한하려면 콜론쓰고 수퍼클래스명 명시하기 <T: SuperClass>
 
-// 업캐스팅은 상위 자료형에 담는것으로 동작, 다운캐스팅은 별도의 연산자가 필요함 -> as, is
-// as - 변수를 호환되는 자료형으로 변환해주는 캐스팅 연산자, 코드 내에서 사용할시 즉시 자료형을 변환해줌 / 변환된 자료형을 반환도 해줌
-// is - 변수가 자료형에 호환되는지를 먼저 체크한후 변환해주는 캐스팅 연산자, 조건문 내에서 사용됨
+// 함수에 제너릭을 선언한경우 일반적인 함수처럼 사용하면 패러미터나 반환형을통해 타입패러미터 자동으로 추론
+// 클래스의경우 인스턴스 만들때 타입패러미터 수동으로 지정, 생성자에 제너릭이 사용된경우 지정하지않아도 자동으로 추론됨
 
 fun main() {
-    var a = Drink()
-    a.drink()
+    UsingGeneric(A()).doShouting()
+    UsingGeneric(B()).doShouting()
+    UsingGeneric(C()).doShouting()
 
-    var b: Drink = Cola()
-    b.drink()
-
-    if(b is Cola) { // is는 조건문 안에서만 잠시 다운캐스팅됨
-        b.washDishes()
-    }
-
-    var c = b as Cola
-    c.washDishes()
-    b.washDishes()  // as를 사용하면 반환값뿐만아니라 변수 자체도 다운캐스팅되기 때문에 에러 ㄴㄴ
+    doShouting(B())
 }
 
-open class Drink {
-    var name = "음료"
+fun <T: A> doShouting(t: T) {
+    t.shout()
+}
 
-    open fun drink(){
-        println("${name}를 마십니다")
+open class A {
+    open fun shout() {
+        println("A가 소리칩니다")
     }
 }
 
-class Cola: Drink() {
-    var type = "콜라"
-
-    override fun drink() {
-        println("${name}중에 ${type}를 마십니다")
+class B : A() {
+    override fun shout() {
+        println("B가 소리칩니다")
     }
+}
 
-    fun washDishes() {
-        println("${type}로 설거지를 합니다")
+class C : A() {
+    override fun shout() {
+        println("C가 소리칩니다")
+    }
+}
+
+class UsingGeneric<T: A> (val t: T) {
+    fun doShouting() {
+        t.shout()
     }
 }
