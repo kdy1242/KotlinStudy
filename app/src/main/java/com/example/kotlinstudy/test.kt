@@ -1,46 +1,52 @@
 package com.example.kotlinstudy
 
-// 리스트
-// 데이터를 모아 관리하는 컬렉션 클래스를 상속받는 서브클래스중 가장 단순한 형태
-// 여러개의 데이터를 원하는 순서로 넣어 관리하는 형태
-
-// 1 List<T> - 생성시에 넣은 객체를 대체, 추가, 삭제할 수 없음
-// 2 MutableList<T> - 대체, 추가, 삭제 ㄱㄴ
-
-// 리스트 만들때는 listOf(), mutableListOf() 사용
-
-// MutableList 에서는
-// 요소의 추가 add(데이터), add(인덱스, 데이터)
-// 삭제 remove(데이터), removeAt(인덱스)
-// 무작위 섞기 shuffle()
-// 정렬 sort()
-// 대체 list[인덱스] = 데이터
+// 문자열을 다루는 법
 
 fun main() {
-    var a = listOf("사과", "딸기", "배")
-    println(a[1])
+    val test1 = "Test.Kotlin.String"
 
-    for(fruit in a){
-        println("${fruit}")
-    }
+    println(test1.length)   // 문자열의 길이
+
+    println(test1.toLowerCase())    // 영문 소문자로 문자열 전체를 변환하여 반환
+    println(test1.toUpperCase())    // 영문 대문자로 문자열 전체를 변환하여 반환
+
+    val test2 = test1.split(".")
+    println(test2)   // 특정 문자열을 기준으로 문자열을 여러개로 나눠 배열에 담기
+
+    // 문자열이 들어가있는 배열을 다시 하나의 문자열로 합침
+    println(test2.joinToString())
+    println(test2.joinToString("-"))
+
+    // 문자열 일부분만 사용
+    println(test1.substring(5..10))
+
+    // 문자열이 비어있는지 여부를 판단하여 boolean 값으로 반환
+    val nullString: String? = null
+    val emptyString = ""
+    val blankString = " "
+    val normalString = "A"
+
+    println(nullString.isNullOrEmpty())     // null 이거나 empty 이면 true 반환
+    println(emptyString.isNullOrEmpty())
+    println(blankString.isNullOrEmpty())
+    println(normalString.isNullOrEmpty())
 
     println()
 
-    var b = mutableListOf(6, 3, 1)
-    println(b)
+    println(nullString.isNullOrBlank())     // null 이거나 blank 이면 true 반환
+    println(emptyString.isNullOrBlank())    // 공백 문자 포함(space, tab, line feed 등등 눈에 직접적으로 보이지 않는 문자)
+    println(blankString.isNullOrBlank())
+    println(normalString.isNullOrBlank())
 
-    b.add(4)
-    println(b)
+    var test3 = "kotlin.kt"
+    var test4 = "java.java"
 
-    b.add(2, 8)
+    println(test3.startsWith("java"))   // 지정한 문자열로 시작하면 true 반환
+    println(test4.startsWith("java"))
 
-    b.removeAt(1)
-    println(b)
+    println(test3.endsWith(".kt"))      // 지정한 문자열로 끝나면 true 반환
+    println(test4.endsWith(".kt"))
 
-    b.shuffle()
-    println(b)
-
-    b.sort()
-    println(b)
+    println(test3.contains("lin"))      // 지정한 문자열이 포함되면 true 반환
+    println(test4.contains("lin"))
 }
-// 리스트는 목록이 필요한 모든 코드에서 가장 편리하게 사용할수있는 컬렉션
