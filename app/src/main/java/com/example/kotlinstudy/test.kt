@@ -2,19 +2,18 @@ package com.example.kotlinstudy
 
 // 함수의 argument 다루는 방법
 
-// 패러미터를 받아야하는 함수지만 별다른 패러미터가 없더라도 기본값으로 동작해야한다면
-// default arguments 사용
-
-// named arguments - 패러미터의 순서와 관계없이 패러미터의 이름을 사용하여 직접 패러미터의 값을 할당하는 기능
+// variable number of arguments (vararg)
+// 같은 자료형을 개수에 상관없이 패러미터로 받고싶을때 사용
 
 fun main() {
-    deliveryItem("짬뽕")
-    deliveryItem("책", 3)
-    deliveryItem("노트북", 30, "학교")
-
-    deliveryItem("선물", destination = "친구집") // named arguments
+    sum(1, 2, 3, 4)
 }
 
-fun deliveryItem(name: String, count: Int = 1, destination: String = "집") {
-    println("${name}, ${count}개를 ${destination}에 배달하였습니다")
+fun sum(vararg numbers: Int) {  // vararg 는 개수가 지정되지않은 패러미터라는 특징이 있으므로 다른 패러미터랑 같이쓸땐 반드시 맨 마지막에 위치해야함
+    var sum = 0
+
+    for(n in numbers) {
+        sum += n
+    }
+    print(sum)
 }
