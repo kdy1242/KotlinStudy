@@ -1,19 +1,16 @@
 package com.example.kotlinstudy
 
-// 함수의 argument 다루는 방법
-
-// variable number of arguments (vararg)
-// 같은 자료형을 개수에 상관없이 패러미터로 받고싶을때 사용
+// infix 함수
+// 연산자처럼 쓸수있는 infix 함수
 
 fun main() {
-    sum(1, 2, 3, 4)
-}
+    println(6 multiply 4)   // 좌측에 붙은 6이 infix 함수가 적용되는 객체 자신 (this)
+                            // 우측에 붙은 4가 패러미터인 x에 해당함
 
-fun sum(vararg numbers: Int) {  // vararg 는 개수가 지정되지않은 패러미터라는 특징이 있으므로 다른 패러미터랑 같이쓸땐 반드시 맨 마지막에 위치해야함
-    var sum = 0
+    println(6.multiply(4))
 
-    for(n in numbers) {
-        sum += n
-    }
-    print(sum)
+    // 클래스 안에서 infix 함수를 선언할때는 적용할 클래스가 자기 자신이므로 클래스이름은 쓰지않음
 }
+infix fun Int.multiply(x: Int): Int = this * x
+// 함수를 정의할때 앞에 infix 붙이기
+// 함수 이름을 infix 함수가 적용될 자료형.이름으로 지정
