@@ -15,21 +15,13 @@ package com.example.kotlinstudy
 // 생성자와 똑같은형태의 패러미터를 주어 일부 속성을 변경해줄수도 잇다
 
 fun main() {
-    val a = General("보영", 212)
+    val list = listOf(Data("보영", 212),
+                      Data("루다", 306),
+                      Data("아린", 618))
 
-    println(a == General("보영", 212))
-    println(a.hashCode())
-    println(a)
-
-    val b = Data("루다", 308)
-
-    println(b == Data("루다", 306))
-    println(b.hashCode())
-    println(b)
-
-    println(b.copy())
-    println(b.copy("아린"))
-    println(b.copy(id = 618))
+    for((a, b) in list) {   // 내부적으로는 component1(), component2() 라는 함수를 사용하여 순서대로 값을 불러오게됨
+        println("${a}, ${b}")
+    }
 }
 
 class General(val name: String, val id: Int)
