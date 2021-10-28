@@ -1,50 +1,37 @@
 package com.example.kotlinstudy
 
-// 중첩클래스와 내부클래스
+// Data Class
 
-// 중첩클래스 - 하나의 클래스가 다른 클래스의 기능과 강하게 연관되어잇다는 의미를 전달하기위해 만들어진 형식
-// 사용할땐 외부클래스이름.중첩클래스이름
+// 데이터를 다루는데 최적화된 클래스
 
-// 내부클래스 - 중첩클래스에 inner 라는 키워드를 붙인 내부클래스는
-// 혼자서 객체를 만들수는 없고 외부클래스에 객체가 있어야만 생성과 사용이 가능한 클래스
+// 5가지 기능을 내부적으로 자동으로 생성해줌
+// equals() - 내용의 동일성을 판단
+// hashcode() - 객체의 내용에서 고유한 코드를 생성
+// toString() - 포함된 속성을 보기쉽게 나타냄
+// copy() - 객체를 복사하여 똑같은 내용의 새 객체를 만듦
+// componentX() - 속성을 순서대로 반환
 
-// 중첩클래스는 형태만 내부에 존재할뿐 실질적으로는 서로 내용을 공유할수없는 별개의 클래스이다
-// 내부클래스는 외부클래스 객체 안에서 사용되는 클래스이므로 외부클래스객체의 속성이나 함수를 사용할수 있다
+// copy() 로 새 객체를 생성할때는 똑같은 내용의 객체를 생성할수도있지만
+// 생성자와 똑같은형태의 패러미터를 주어 일부 속성을 변경해줄수도 잇다
 
 fun main() {
-    Outer.Nested().introduce()
+    val a = General("보영", 212)
 
-    val outer = Outer()
-    val inner = outer.Inner()
+    println(a == General("보영", 212))
+    println(a.hashCode())
+    println(a)
 
-    inner.introduceInner()
-    inner.introduceOuter()
+    val b = Data("루다", 308)
 
-    outer.text = "Changed Outer Class"
-    inner.introduceOuter()
+    println(b == Data("루다", 306))
+    println(b.hashCode())
+    println(b)
+
+    println(b.copy())
+    println(b.copy("아린"))
+    println(b.copy(id = 618))
 }
 
-class Outer {
-    var text = "Outer Class"
+class General(val name: String, val id: Int)
 
-    class Nested {
-        fun introduce() {
-            println("Nested Class")
-        }
-    }
-
-    inner class Inner {
-        var text = "Inner Class"
-
-        fun introduceInner() {
-            println(text)
-        }
-
-        fun introduceOuter() {
-            println(this@Outer.text)
-        }
-    }
-}
-
-// 중첩클래스와 내부클래스는 클래스간에 연계성을 표현하여 코드의 가독성및 작성 편의성이 올라갈수 잇으므로
-// 적절한 상황에서 사용하는것이 좋음
+data class Data(val name: String, val id: Int)
