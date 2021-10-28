@@ -1,29 +1,34 @@
 package com.example.kotlinstudy
 
-// Data Class
+// Enum Class
 
-// 데이터를 다루는데 최적화된 클래스
+// enumerated type(열거형)
+// enum class 내의 상태를 구분하하기위한 객체들을 이름을 붙여 여러개 생성해두고
+// 그중 하나의 상태를 선택하여 나타내기위한 클래스
 
-// 5가지 기능을 내부적으로 자동으로 생성해줌
-// equals() - 내용의 동일성을 판단
-// hashcode() - 객체의 내용에서 고유한 코드를 생성
-// toString() - 포함된 속성을 보기쉽게 나타냄
-// copy() - 객체를 복사하여 똑같은 내용의 새 객체를 만듦
-// componentX() - 속성을 순서대로 반환
+// enum 클래스 안의 객체들은 관행적으로 상수를 나타낼때 사용하는 대문자로 기술
 
-// copy() 로 새 객체를 생성할때는 똑같은 내용의 객체를 생성할수도있지만
-// 생성자와 똑같은형태의 패러미터를 주어 일부 속성을 변경해줄수도 잇다
+// enum 의 객체들을 고유한 속성을 가질수잇다
+// enum 의 생성자를 만들어 속성을 받도록하면 객체를 선언할때 속성도 설정할수잇음
+
+// 일반클래스처럼 함수도 가질수잇다
+// 객체의 선언이 끝나는 위치에 세미콜론을 추가하고 함수를 기술
 
 fun main() {
-    val list = listOf(Data("보영", 212),
-                      Data("루다", 306),
-                      Data("아린", 618))
+    var state = State.SING
+    println(state)
 
-    for((a, b) in list) {   // 내부적으로는 component1(), component2() 라는 함수를 사용하여 순서대로 값을 불러오게됨
-        println("${a}, ${b}")
-    }
+    state = State.SLEEP
+    println(state.isSleeping())
+
+    state = State.EAT
+    println(state.message)
 }
 
-class General(val name: String, val id: Int)
+enum class State(val message: String) {
+    SING("노래를 부릅니다"),
+    EAT("밥을 먹습니다"),
+    SLEEP("잠을 잡니다");
 
-data class Data(val name: String, val id: Int)
+    fun isSleeping() = this == State.SLEEP
+}
