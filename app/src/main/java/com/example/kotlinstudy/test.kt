@@ -1,27 +1,32 @@
 package com.example.kotlinstudy
 
-// Set
+// Map
 // 코틀린이 기본적으로 지원하는 컬렉션 클래스
 
-// List 와 달리 순서가 정렬되지 않으며 중복이 허용되지 않는 컬렉션
-// 인덱스로 위치 지정하여 객체를 참조할수 없음, contains 로 객체가 set 안에 존재하는지를 확인하는 식으로만 사용
+// 객체를 넣을때 그 객체를 찾아낼수있는 key 를 쌍으로 넣어주는 컬렉션
 
-// Set<out T>      MutableSet<T>
-// 객체의 추가, 삭제가 가능한지 여부에 따라 사용
-// 추가, 삭제 - add, remove
+// key(객체를 찾기위한 값), value(키와 연결된 객체)는 MutableMap.MutableEntry 에 담겨있음
+// 객체의 위치가 아닌 고유한 키를통해 객체를 참조하는 특징을 가지고잇음
+// 같은키에 다른 객체를 넣으면 기존의 객체가 대체됨
+
+// Map<K, out V>      MutableMap<K, V>
+//                    추가, 삭제 가능
+// 요소의 추가, 삭제 - put(키, 값), remove(키)
 
 fun main() {
-    val a = mutableSetOf("귤", "바나나", "키위")
+    val a = mutableMapOf("홍길동" to "홍씨",
+                         "김길동" to "김씨",
+                         "박길동" to "박씨")
 
-    for(item in a) {
-        println("${item}")
+    for(entry in a) {
+        println("${entry.key} : ${entry.value}")
     }
 
-    a.add("자몽")
+    a.put("황길동", "황씨")
     println(a)
 
-    a.remove("바나나")
+    a.remove("박길동")
     println(a)
 
-    println(a.contains("귤"))
+    println(a["홍길동"])
 }
