@@ -32,23 +32,34 @@ import kotlinx.coroutines.*
 // *주의할점 - 안드로이드에서는 메인 스레드에서 runBlocking 을 걸어주면
 //             일정시간동안 응답이 없는경우 ANR(Application Not Responding: 응답없음오류)발생하며 앱이 강제종료됨
 
+// 루틴의 대기를 위한 추가적인 함수들
+// delay() - millisecond 단위로 루틴을 잠시 대기시키는 함수
+// join() - Job 객체에서 호출하여 Job 의 실행이 끝날때까지 대기하는 함수
+// await() - Deferred 객체에서 호출하여 Deferred 의 실행이 끝날때까지 대기하는 함수, deferred 의 결과도 반환함
+// 세 함수들은 코루틴 내부 또는 runBlocking{}과 같은 루틴의 대기가 가능한 구문 안에서만 동작 가능
 
 fun main() {
 
     val scope = GlobalScope
 
-//    scope.launch {
-//        for(i in 1..5) {
-//            println(i)
-//        }
-//    }
-
     runBlocking {
-        launch {
+        val a = launch {
             for(i in 1..5) {
                 println(i)
+                delay(10)
             }
         }
+
+        val b = async {
+            "async 종료"
+        }
+
+        println("async 대기")
+        println(b.await())
+
+        println("launch 대기")
+        a.join()
+        println("launch 종료")
     }
 
 }
