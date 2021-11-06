@@ -43,29 +43,20 @@ import kotlinx.coroutines.*
 // 1. 코루틴 내부 delay()함수 또는 yield()함수가 사용된 위치까지 수행된 뒤 종료됨
 // 2. cancel()로 인해 속성인 isActive 가 false 가 되므로 이를 확인하여 수동으로 종료함
 
+// withTimeoutOrNull() - 제한시간내에 수행되면 결과값, 아닌경우 null 반환
+// 괄호안에 밀리세컨드단위의 타임아웃 시간을 정해두고 중괄호안에 코루틴 구문들을 만든후 결과값을 받는 형태로 사용
+// 이거도 join()이나 await()처럼 blocking 함수임
 
 fun main() {
 
-    val scope = GlobalScope
-
     runBlocking {
-        val a = launch {
-            for(i in 1..5) {
+        var result = withTimeoutOrNull(50) {
+            for(i in 1..10) {
                 println(i)
                 delay(10)
             }
+            "Finish"
         }
-
-        val b = async {
-            "async 종료"
-        }
-
-        println("async 대기")
-        println(b.await())
-
-        println("launch 취소")
-        a.cancel()
-        println("launch 종료")
+        println(result)
     }
-
 }
