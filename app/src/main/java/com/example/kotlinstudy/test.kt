@@ -22,11 +22,33 @@ import kotlinx.coroutines.*
 // launch 나 async 라는 함수를 통해 새로운 코루틴을 생성할수잇다
 // 차이점은 반환값이 잇는지의 여부
 // launch - 반환값이 없는 Job 객체
-// async - 반환값이 있는 Deffered 객체
+// async - 반환값이 있는 Deferred 객체
 // 둘다 람다함수의 형태, async 는 마지막 구문의 실행결과가 반환됨
+
+// 코루틴은 제어되는 스코프 또는 프로그램 전체가 종료되면 함께 종료됨
+// -> 코루틴이 끝까지 실행되는 것을 보장하려면 일정한 범위에서 코루틴이 모두 실행될때까지 잠시 기다려주어야함
+// --> runBlocking 블록을 만들어주고 이 안에서 launch{}나 async{}를 직접 생성하면
+//      코루틴이 종료될때까지 메인 루틴을 잠시 대기시켜준다
+// *주의할점 - 안드로이드에서는 메인 스레드에서 runBlocking 을 걸어주면
+//             일정시간동안 응답이 없는경우 ANR(Application Not Responding: 응답없음오류)발생하며 앱이 강제종료됨
+
 
 fun main() {
 
-    
+    val scope = GlobalScope
+
+//    scope.launch {
+//        for(i in 1..5) {
+//            println(i)
+//        }
+//    }
+
+    runBlocking {
+        launch {
+            for(i in 1..5) {
+                println(i)
+            }
+        }
+    }
 
 }
