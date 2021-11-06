@@ -38,6 +38,12 @@ import kotlinx.coroutines.*
 // await() - Deferred 객체에서 호출하여 Deferred 의 실행이 끝날때까지 대기하는 함수, deferred 의 결과도 반환함
 // 세 함수들은 코루틴 내부 또는 runBlocking{}과 같은 루틴의 대기가 가능한 구문 안에서만 동작 가능
 
+// cancel() - 코루틴 실행 도중에 중단
+// 코루틴에 cancel()을 걸어주면 두가지 조건이 발생하며 코루틴을 중단시킬 수 잇다
+// 1. 코루틴 내부 delay()함수 또는 yield()함수가 사용된 위치까지 수행된 뒤 종료됨
+// 2. cancel()로 인해 속성인 isActive 가 false 가 되므로 이를 확인하여 수동으로 종료함
+
+
 fun main() {
 
     val scope = GlobalScope
@@ -57,8 +63,8 @@ fun main() {
         println("async 대기")
         println(b.await())
 
-        println("launch 대기")
-        a.join()
+        println("launch 취소")
+        a.cancel()
         println("launch 종료")
     }
 
